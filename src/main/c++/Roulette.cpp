@@ -29,6 +29,10 @@ public:
 	}
 
 private:
+	void printStartingInfo(long long currentNumberOfSpins) {
+		printf(STARTING_INFO_FORMAT.c_str(), currentNumberOfSpins);
+	}
+
 	void printSpinResultInfo(long long biggestSequence) {
 		printf(RESULT_INFO_FORMAT.c_str(), biggestSequence);
 		for (size_t i = 0; i < statistics.size(); ++i) {
@@ -37,16 +41,12 @@ private:
 		printf("\n");
 	}
 
-	void printStartingInfo(long long currentNumberOfSpins) {
-		printf(STARTING_INFO_FORMAT.c_str(), currentNumberOfSpins);
-	}
-
 	long long getBiggestSequence(long long currentNumberOfSpins) {
-		setSequences(currentNumberOfSpins);
+		setStatistics(currentNumberOfSpins);
 		return statistics.size();
 	}
 
-	void setSequences(long long currentNumberOfSpins) {
+	void setStatistics(long long currentNumberOfSpins) {
 		SectorColor previousColor = getRandomColor();
 		SectorColor currentColor;
 		long long currentSequence = 0;
@@ -54,17 +54,18 @@ private:
 		for (long long i = 0; i < currentNumberOfSpins; ++i) {
 			currentColor = getRandomColor();
 			currentSequence = calculateCurrentSequence(currentColor, previousColor, currentSequence);
-			syncSequence(currentSequence);
+			syncStatistics(currentSequence);
 			previousColor = currentColor;
 		}
 	}
 
 	SectorColor getRandomColor() {
 		long long randomNumber = rand();
+
 		if (randomNumber % 2 == 0) {
-			return SectorColor::BLACK;
-		} else {
 			return SectorColor::RED;
+		} else {
+			return SectorColor::BLACK;
 		}
 	}
 
@@ -78,7 +79,7 @@ private:
 		return currentSequence;
 	}
 
-	void syncSequence(long long currentSequence) {
+	void syncStatistics(long long currentSequence) {
 		if (currentSequence > statistics.size()) {
 			statistics.push_back(1);
 		} else {

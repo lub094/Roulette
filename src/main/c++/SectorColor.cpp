@@ -5,4 +5,4 @@
  *      Author: Lubo
  */
 
-enum SectorColor { RED, BLACK, ZERO };
+enum SectorColor { RED, BLACK, GREEN };
