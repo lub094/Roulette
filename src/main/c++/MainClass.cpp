@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Roulette.cpp"
+#include <random>
 
 int main() {
 	srand(time(nullptr));

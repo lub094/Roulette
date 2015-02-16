@@ -13,18 +13,16 @@
 
 #include "SectorColor.cpp"
 
-using namespace std;
-
 class Roulette {
 public:
 	void spin(long long currentNumberOfSpins) {
-		statistics = vector<long long>();
+		statistics = std::vector<long long>();
 		long long biggestSequence = getBiggestSequence(currentNumberOfSpins);
 		printStartingInfo(currentNumberOfSpins);
 		printSpinResultInfo(biggestSequence);
 	}
 
-	vector<long long> getStatistics() {
+	std::vector<long long> getStatistics() {
 		return statistics;
 	}
 
@@ -87,11 +85,11 @@ private:
 		}
 	}
 
-	vector<long long> statistics;
+	std::vector<long long> statistics;
 
-	string STARTING_INFO_FORMAT = "Spinned %I64d times.\n";
+	std::string STARTING_INFO_FORMAT = "Spun %I64d times.\n";
 
-	string RESULT_INFO_FORMAT = "The biggest sequence was %I64d.\n\n";
+	std::string RESULT_INFO_FORMAT = "The biggest sequence was %I64d.\n\n";
 
-	string ARRAY_PRINT_FORMAT = "%I32d:\t%I64d\n";
+	std::string ARRAY_PRINT_FORMAT = "%I32d:\t%I64d\n";
 };
