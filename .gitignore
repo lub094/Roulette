@@ -28,4 +28,6 @@
 *.app
 /Debug
 
+# Additional
 /.settings
+/Debug
