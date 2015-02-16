@@ -12,7 +12,7 @@ int main() {
 	srand(time(nullptr));
 
 	Roulette roulette;
-	roulette.spin(10000000);
+	roulette.spin(10000);
 
 	return 0;
 }

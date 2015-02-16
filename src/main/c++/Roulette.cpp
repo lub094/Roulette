@@ -62,7 +62,7 @@ private:
 	SectorColor getRandomColor() {
 		long long randomNumber = rand();
 
-		if (randomNumber % 2 == 0) {
+		if (randomNumber & 1024) {
 			return SectorColor::RED;
 		} else {
 			return SectorColor::BLACK;
