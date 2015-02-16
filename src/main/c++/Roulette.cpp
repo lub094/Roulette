@@ -17,28 +17,11 @@ using namespace std;
 
 class Roulette {
 public:
-	Roulette(long long currentNumberOfSpins) {
-		setNumberOfSpins(currentNumberOfSpins);
-
-	}
-
-	void spin(bool calculateAndPrintStatistics) {
-		spin(getNumberOfSpins(), calculateAndPrintStatistics);
-	}
-
-	void spin(long long currentNumberOfSpins, bool calculateAndPrintStatistics) {
+	void spin(long long currentNumberOfSpins) {
 		statistics = vector<long long>();
+		long long biggestSequence = getBiggestSequence(currentNumberOfSpins);
 		printStartingInfo(currentNumberOfSpins);
-		long long biggestSequence = getBiggestSequence(currentNumberOfSpins, calculateAndPrintStatistics);
 		printSpinResultInfo(biggestSequence);
-	}
-
-	long long getNumberOfSpins() {
-		return numberOfSpins;
-	}
-
-	void setNumberOfSpins(long long currentNumberOfSpins) {
-		numberOfSpins = currentNumberOfSpins;
 	}
 
 	vector<long long> getStatistics() {
@@ -46,14 +29,6 @@ public:
 	}
 
 private:
-	long long getBiggestSequence(long long currentNumberOfSpins, bool calculateAndPrintStatistics) {
-		if (calculateAndPrintStatistics) {
-			return setSequencesAndGetTheBiggest(currentNumberOfSpins);
-		} else {
-			return getBiggestSequence(currentNumberOfSpins);
-		}
-	}
-
 	void printSpinResultInfo(long long biggestSequence) {
 		printf(RESULT_INFO_FORMAT.c_str(), biggestSequence);
 		for (size_t i = 0; i < statistics.size(); ++i) {
@@ -67,57 +42,25 @@ private:
 	}
 
 	long long getBiggestSequence(long long currentNumberOfSpins) {
-		long long biggestSequence = 0;
-		long long currentSequence = 0;
-
-		SectorColor previousColor = getRandomColor();
-		SectorColor currentColor;
-
-		for (long long i = 0; i < currentNumberOfSpins; ++i) {
-			currentColor = getRandomColor();
-			currentSequence = calculateCurrentSequence(currentColor, previousColor, currentSequence);
-			biggestSequence = max(biggestSequence, currentSequence);
-			previousColor = currentColor;
-		}
-
-		return biggestSequence;
-	}
-
-	long long setSequencesAndGetTheBiggest(long long currentNumberOfSpins) {
 		setSequences(currentNumberOfSpins);
 		return statistics.size();
 	}
 
 	void setSequences(long long currentNumberOfSpins) {
-		long long* x = new long long(0);
 		SectorColor previousColor = getRandomColor();
 		SectorColor currentColor;
 		long long currentSequence = 0;
 
 		for (long long i = 0; i < currentNumberOfSpins; ++i) {
-			if (currentSequence == 15) {
-//				system("pause");
-			}
-
-			currentColor = getRandomColor(x);
-
-			if (currentSequence == 15) {
-//				cout << previousColor << " " << currentColor << " " << *x << endl;
-			}
-
+			currentColor = getRandomColor();
 			currentSequence = calculateCurrentSequence(currentColor, previousColor, currentSequence);
 			syncSequence(currentSequence);
 			previousColor = currentColor;
 		}
 	}
 
-	SectorColor getRandomColor(long long* x = nullptr) {
+	SectorColor getRandomColor() {
 		long long randomNumber = rand();
-
-		if (x != nullptr) {
-			*x = randomNumber;
-		}
-
 		if (randomNumber % 2 == 0) {
 			return SectorColor::BLACK;
 		} else {
@@ -135,15 +78,13 @@ private:
 		return currentSequence;
 	}
 
-	void syncSequence(size_t currentSequence) {
+	void syncSequence(long long currentSequence) {
 		if (currentSequence > statistics.size()) {
 			statistics.push_back(1);
 		} else {
 			statistics[currentSequence - 1] += 1;
 		}
 	}
-
-	long long numberOfSpins;
 
 	vector<long long> statistics;
 

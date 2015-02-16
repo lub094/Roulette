@@ -8,18 +8,11 @@
 #include <iostream>
 #include "Roulette.cpp"
 
-using namespace std;
-
-class MainClass {
-public:
-	static void main(string args[] = nullptr) {
-		Roulette roulette(10);
-			roulette.spin(5000000000, true);
-	}
-};
-
 int main() {
 	srand(time(nullptr));
-	MainClass::main();
+
+	Roulette roulette;
+	roulette.spin(5000000);
+
 	return 0;
 }
