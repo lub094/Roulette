@@ -31,3 +31,6 @@
 # Additional
 /.settings
 /Debug
+.idea/
+CMakeLists.txt
+

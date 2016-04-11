@@ -1,19 +1,18 @@
-/*
- * MainClass.cpp
- *
- *  Created on: Feb 14, 2015
- *      Author: Lubo
- */
-
 #include <iostream>
 #include "Roulette.cpp"
-#include <random>
+
+using namespace std;
+
+class MainClass {
+public:
+    static void main(string args[] = nullptr) {
+        Roulette roulette(10);
+        roulette.spin(50, true);
+    }
+};
 
 int main() {
-	srand(time(nullptr));
-
-	Roulette roulette;
-	roulette.spin(10000);
-
-	return 0;
+    srand(time(nullptr));
+    MainClass::main();
+    return 0;
 }
